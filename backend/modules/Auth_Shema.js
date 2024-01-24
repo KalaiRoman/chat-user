@@ -23,10 +23,6 @@ const Auth_Shema = new mongoose.Schema({
                     type: String,
                     required: true
                 },
-                user: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'auth'
-                },
                 createdAt: {
                     type: String,
                     default: () => new Date().toISOString(),

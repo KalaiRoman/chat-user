@@ -33,23 +33,20 @@
 
                     .user-box {
                         width: 100%;
-                        border-bottom: 3px solid #F9F5F6;
+                        border-bottom: 3px solid #f9f5f6;
                         padding: 10px 9px;
                         cursor: pointer;
                         display: flex;
-                        gap:20px;
-                        .user-image
-                        {
+                        gap: 20px;
+                        .user-image {
                             width: 50px;
                             height: 50px;
                             border-radius: 50%;
                             object-fit: contain;
                         }
-                       
                     }
-                    .user-box:hover
-                    {
-                        background-color: #F9F5F6;
+                    .user-box:hover {
+                        background-color: #f9f5f6;
                     }
                 }
             }
@@ -58,14 +55,31 @@
             width: 82%;
             border: 2px solid red;
             height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .chat-image {
+                width: 100%;
+                height: 400px;
+                object-fit: contain;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
             .inside-right-chatbox {
                 width: 100%;
                 height: 100vh;
                 overflow: hidden;
+
                 .right-chatbox-header {
                     width: 100%;
                     height: 10%;
                     border: 3px solid red;
+                }
+                .chat-form {
+                    border: none !important;
+                    width: 800px !important;
+                    outline: none !important;
                 }
                 .right-chatbox-body {
                     width: 100%;
@@ -77,6 +91,27 @@
                 .right-chatbox-message {
                     width: 100%;
                     height: 12%;
+                    .border-chat {
+                        border: 1px solid white;
+                        border-radius: 10px;
+                        cursor: pointer;
+                        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+                        width: 90%;
+                        margin: 0 auto;
+                        padding: 0px 30px;
+                        display: flex;
+                        gap: 5%;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                    ion-icon {
+                        font-size: 32px;
+                        transform: 2s;
+                    }
+                    ion-icon:hover {
+                        transform: rotate(-30deg);
+                        transition: 2s;
+                    }
                 }
             }
         }

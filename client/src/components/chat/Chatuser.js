@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './Chatuser.scss';
 import { Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AllUsers } from '../../redux/actions/AllusersActions';
+import { AllUsers, CommandCreateActions } from '../../redux/actions/AllusersActions';
 import { SingleuserActionData } from '../../redux/actions/SingleuserAction';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -47,13 +47,11 @@ function Chatuser() {
     }
     if (command) {
       const datas = {
-        desc: command,
-        commanduserdid: final?.id,
-        userid: final?.id
+        message: command,
       }
       setPostcm([...postcm, datas]);
       setCommand("");
-      // dispatch(CommandCreateActions(data?._id, datas, final?.id, setLoading, handleShow))
+      dispatch(CommandCreateActions(singleuserchat?._id, datas))
     }
   }
   if (usertoken) {
@@ -93,43 +91,56 @@ function Chatuser() {
             </div>
           </div>
           <div className='right-chatbox'>
-            <div className='inside-right-chatbox'>
-              <div className='right-chatbox-header'>
-                {singleuserchat?.userName}
-              </div>
-              <div className='right-chatbox-body'>
-                {Array(100).fill(null)?.map((item, index) => {
-                  return (
-                    <div>
-                      {index + 1}
+            {singleuserchat?.userName ? <>
+              <div className='inside-right-chatbox'>
+                <div className='right-chatbox-header'>
+                  {singleuserchat?.userName}
+                </div>
+                <div className='right-chatbox-body'>
+                  {singleuserchat?.userChatmessages?.map((item, index) => {
+                    return (
+                      <div>
+                        {item?.message}
+                      </div>
+                    )
+                  })}
+                </div>
+                <div className='right-chatbox-message'>
+                  <div className='d-flex align-items-center mt-2 mb-4 border-chat'>
+                    <div onClick={handleShow1}>
+                      😀
                     </div>
-                  )
-                })}
-              </div>
-              <div className='right-chatbox-message'>
-                <div className='d-flex align-items-center justify-content-center gap-3 mt-4 mb-4'>
-                  <div onClick={handleShow1} style={{ cursor: "pointer", width: "15%", border: "1px solid #E5D4FF", textAlign: "center", borderRadius: "10px", padding: "6px 0px", fontSize: "1.4rem" }}>
-                    😀
-                  </div>
-                  <div className='mt-3'>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Control type="text" placeholder="Enter Command Post"
-                        value={command}
-                        onChange={(e) => setCommand(e?.target?.value)}
-                      />
-                      <Form.Text className=" text-danger mt-2">
-                        {command?.length > 0 ? <></> : <>
-                          {commanderror}
-                        </>}
-                      </Form.Text>
-                    </Form.Group>
-                  </div>
-                  <div >
-                    <Button variant="primary" onClick={SumbmitCommand}>Send Command</Button>
+                    <div className='mt-3'>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <input type="text" placeholder="Type a message"
+                          value={command}
+                          onChange={(e) => setCommand(e?.target?.value)}
+                          className='chat-form'
+                        />
+                        <Form.Text className=" text-danger mt-2">
+                          {command?.length > 0 ? <></> : <>
+                            {commanderror}
+                          </>}
+                        </Form.Text>
+                      </Form.Group>
+                    </div>
+                    <div onClick={SumbmitCommand}>
+                      {/* <Button variant="primary" onClick={SumbmitCommand}>Send Command</Button> */}
+                      <ion-icon name="send-outline"></ion-icon>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </> : <>
+
+              <div>
+                <img src="https://unblast.com/wp-content/uploads/2020/05/Group-Chat-Illustration.jpg" alt="no image"
+                  className='chat-image'
+                />
+              </div>
+
+            </>}
+
           </div>
         </div>
       </div>

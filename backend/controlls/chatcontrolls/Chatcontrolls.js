@@ -1,7 +1,7 @@
 import Auth_Shema from "../../modules/Auth_Shema.js";
 
 export const chatCreatemessage = async (req, res, next) => {
-    const { userid, desc, commanduserdid } = req.body;
+    const { message } = req.body;
     try {
 
         // if (req.userid == userid) {
@@ -10,9 +10,8 @@ export const chatCreatemessage = async (req, res, next) => {
             await responsePost.updateOne({
                 $push: {
                     userChatmessages: {
-                        desc: desc,
-                        commanuserId: commanduserdid,
-                        user: userid,
+                        message: message,
+                        commanduserId: req.userid
                     }
                 }
             })
@@ -40,7 +39,7 @@ export const chatCreatemessageDelete = async (req, res, next) => {
         if (req.userid === userid) {
 
             const post = await Auth_Shema.findByIdAndUpdate(
-                { _id: req.params.id },
+                { _id: req.userid },
                 {
                     $pull: { userChatmessages: { _id: commandid } },
                 },
