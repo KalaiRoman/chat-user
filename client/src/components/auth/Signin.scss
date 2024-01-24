@@ -1,0 +1,28 @@
+@use "../../../sass/abstract/" as *;
+
+.main-sigin {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    .inside-main-signin {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        .left-sigin {
+            width: 25%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #f8e8ee;
+        }
+        .right-sigin {
+            width: 75%;
+            background-image: url("https://asoftclick.com/wp-content/uploads/2021/05/self-destructing-text-message-apps-android.jpg");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    }
+}

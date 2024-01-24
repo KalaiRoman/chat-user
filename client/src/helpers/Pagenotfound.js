@@ -6,7 +6,7 @@ function Pagenotfound() {
         <section>
             <div className='main-pagenotfound'>
                 <div>
-                    <img src={notfound} alt="no image" className='notfound-image' />
+                    <img src={`${notfound}`} alt="no image" className='notfound-image' />
                 </div>
                 <div className='page-not-found text-center'>
                     404 <br />

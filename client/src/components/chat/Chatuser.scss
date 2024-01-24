@@ -1,0 +1,84 @@
+@use "../../../sass/abstract/" as *;
+
+.main-chatbox {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    border: 1px solid red;
+    .inside-chatbox {
+        width: 100%;
+        height: 100%;
+        border: 1px solid blue;
+        display: flex;
+        .left-chatbox {
+            width: 28%;
+            border: 2px solid green;
+            .inside-left-chatbox {
+                width: 100%;
+                height: 100vh;
+                .left-chatbox-header {
+                    width: 100%;
+                    height: 14%;
+                    border: 1px solid blue;
+                }
+                .left-chatbox-body {
+                    width: 100%;
+                    height: 86%;
+                    border: 2px solid red;
+                    overflow: hidden;
+                    overflow-y: auto;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+
+                    .user-box {
+                        width: 100%;
+                        border-bottom: 3px solid #F9F5F6;
+                        padding: 10px 9px;
+                        cursor: pointer;
+                        display: flex;
+                        gap:20px;
+                        .user-image
+                        {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            object-fit: contain;
+                        }
+                       
+                    }
+                    .user-box:hover
+                    {
+                        background-color: #F9F5F6;
+                    }
+                }
+            }
+        }
+        .right-chatbox {
+            width: 82%;
+            border: 2px solid red;
+            height: 100%;
+            .inside-right-chatbox {
+                width: 100%;
+                height: 100vh;
+                overflow: hidden;
+                .right-chatbox-header {
+                    width: 100%;
+                    height: 10%;
+                    border: 3px solid red;
+                }
+                .right-chatbox-body {
+                    width: 100%;
+                    height: 78%;
+                    border: 3px solid red;
+                    overflow: hidden;
+                    overflow-y: auto;
+                }
+                .right-chatbox-message {
+                    width: 100%;
+                    height: 12%;
+                }
+            }
+        }
+    }
+}

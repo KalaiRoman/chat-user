@@ -2,11 +2,11 @@ import React from 'react'
 import { Navigate, Outlet } from "react-router-dom";
 
 function ProtectedRouter() {
-    const tokens = true;
+    const tokens = localStorage.getItem("user_token");
     return tokens ?
         <><Outlet /></>
         : <>
-            <Navigate to="/login" />
+            <Navigate to="/" />
         </>
 
 }
