@@ -2,6 +2,7 @@ import { ToastSuccess } from "../../middleware/Toastmodal";
 import { alluserservice } from "../../services/auth_service/auth_service";
 import { createCommandService, deleteCommandService } from "../../services/command_service/command_service";
 import { AlluserFail, AlluserRequest, AlluserSuccess } from "../reducer/Alluser_reducer";
+import { GetmessagesActions } from "./ChatMessageActions";
 
 export const AllUsers = () => async (dispatch) => {
     dispatch(AlluserRequest());
@@ -19,15 +20,13 @@ export const AllUsers = () => async (dispatch) => {
 
 
 
-export const CommandCreateActions = (id,data) => async (dispatch) => {
+export const CommandCreateActions = (data) => async (dispatch) => {
     try {
-        const response = await createCommandService(id,data);
+        const response = await createCommandService(data);
         if (response) {
-            setTimeout(() => {
-                // dispatch(getBlogActionData())
-                dispatch(AllUsers());
-                ToastSuccess("Command Created Successfully")
-            }, 400);
+            dispatch(GetmessagesActions());
+
+
         }
     } catch (error) {
         // ToastError(error?.response?.data?.message);

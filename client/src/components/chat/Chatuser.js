@@ -9,6 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { jwtDecode } from "jwt-decode";
 import EmojiPicker from 'emoji-picker-react';
+import { GetmessagesActions } from '../../redux/actions/ChatMessageActions';
+import moment from 'moment'
 function Chatuser() {
 
   const navigate = useNavigate();
@@ -30,14 +32,23 @@ function Chatuser() {
   const dispatch = useDispatch();
   const chatuser = useSelector((state) => state?.allusers?.Alluser);
   const singleuserchat = useSelector((state) => state?.singleuser?.Singleuser);
+  const chatmessages = useSelector((state) => state?.userchat?.Chatmessage);
+
+  console.log(chatmessages, 'chatmessages')
+
   const [postcm, setPostcm] = useState("");
 
   useEffect(() => {
     dispatch(AllUsers())
-  }, [])
+
+  }, [singleuserchat])
 
 
   const Singleuser = (id) => {
+    const data = {
+      to: id
+    }
+    dispatch(GetmessagesActions(data))
     dispatch(SingleuserActionData(id))
   }
 
@@ -48,10 +59,11 @@ function Chatuser() {
     if (command) {
       const datas = {
         message: command,
+        to: singleuserchat?._id
       }
       setPostcm([...postcm, datas]);
       setCommand("");
-      dispatch(CommandCreateActions(singleuserchat?._id, datas))
+      dispatch(CommandCreateActions(datas))
     }
   }
 
@@ -110,10 +122,19 @@ function Chatuser() {
                   </div>
                 </div>
                 <div className='right-chatbox-body'>
-                  {singleuserchat?.userChatmessages?.map((item, index) => {
+                  {chatmessages?.map((item, index) => {
                     return (
-                      <div>
-                        {item?.message}
+                      <div className={item?.fromself ? "sender" : "receiver"} key={index}>
+
+                        <div className='messagebox'>
+                          <div>
+                            <h6> {item?.message}</h6>
+                          </div>
+                          <div className='date-box'>
+                            {moment(item?.createdAt).format('LT')}
+                          </div>
+                        </div>
+
                       </div>
                     )
                   })}
@@ -121,10 +142,8 @@ function Chatuser() {
                 <div className='right-chatbox-message'>
                   <div className='d-flex align-items-center mt-2 mb-4 border-chat'>
                     <div className='emoji' onClick={handleShow}>
-
                       {show ? <>
                         <EmojiPicker className='box-emojies' onEmojiClick={handleEmojiClick} />
-
                       </> : <>
                         😀
                       </>}

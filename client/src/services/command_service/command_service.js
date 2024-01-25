@@ -2,9 +2,9 @@
 
 
 import instanceBaseurl from './../../config/Baseurl';
-export async function createCommandService(id, data) {
+export async function createCommandService(data) {
     try {
-        const response = await instanceBaseurl.put(`/chat/create/${id}`, data);
+        const response = await instanceBaseurl.post(`/chat/create/`, data);
         return response.data;
     } catch (err) {
         throw err;
@@ -21,9 +21,9 @@ export async function deleteCommandService(id, data) {
     }
 }
 
-export async function LikePostService(id, data) {
+export async function getCommandsmessages(data) {
     try {
-        const response = await instanceBaseurl.put(`/blog/postlike/${id}`, data);
+        const response = await instanceBaseurl.post(`/chat/getmessages/`, data);
         return response.data;
     } catch (err) {
         throw err;

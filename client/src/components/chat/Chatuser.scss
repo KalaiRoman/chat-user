@@ -4,11 +4,9 @@
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    border: 1px solid red;
     .inside-chatbox {
         width: 100%;
         height: 100%;
-        border: 1px solid blue;
         display: flex;
         .left-chatbox {
             width: 28%;
@@ -102,6 +100,31 @@
                     border: 3px solid red;
                     overflow: hidden;
                     overflow-y: auto;
+                    .sender {
+                        display: flex;
+                        justify-content: flex-end;
+                        width: 100%;
+                        padding-right: 20px;
+                    }
+                    .receiver {
+                        display: flex;
+                        justify-content: flex-start;
+                        padding-left: 20px;
+                    }
+                    .messagebox {
+                        width: auto;
+                        border: 3px solid #fdcedf;
+                        border-top-left-radius: 10px;
+                        border-bottom-left-radius: 10px;
+                        border-top-right-radius: 10px;
+                        padding: 10px 20px;
+                        margin: 10px 0px;
+                        .date-box {
+                            display: flex;
+                            justify-content: flex-end;
+                            font-size: 12px;
+                        }
+                    }
                 }
 
                 .right-chatbox-message {

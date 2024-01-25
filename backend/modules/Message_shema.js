@@ -12,6 +12,12 @@ const Message_Shema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:"auth"
+        ref: "auth"
     }
+}, {
+    timestamps: true
 })
+
+mongoose.models = {};
+
+export default mongoose.model("message", Message_Shema)
