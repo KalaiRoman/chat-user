@@ -20,13 +20,11 @@ export const AllUsers = () => async (dispatch) => {
 
 
 
-export const CommandCreateActions = (data) => async (dispatch) => {
+export const CommandCreateActions = (data,chatid) => async (dispatch) => {
     try {
         const response = await createCommandService(data);
         if (response) {
-            dispatch(GetmessagesActions());
-
-
+            dispatch(GetmessagesActions(chatid));
         }
     } catch (error) {
         // ToastError(error?.response?.data?.message);

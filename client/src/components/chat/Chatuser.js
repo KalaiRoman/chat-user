@@ -63,7 +63,10 @@ function Chatuser() {
       }
       setPostcm([...postcm, datas]);
       setCommand("");
-      dispatch(CommandCreateActions(datas))
+      const data = {
+        to: singleuserchat?._id
+      }
+      dispatch(CommandCreateActions(datas, data))
     }
   }
 
