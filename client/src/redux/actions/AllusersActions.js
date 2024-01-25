@@ -20,7 +20,7 @@ export const AllUsers = () => async (dispatch) => {
 
 
 
-export const CommandCreateActions = (data,chatid) => async (dispatch) => {
+export const CommandCreateActions = (data, chatid) => async (dispatch) => {
     try {
         const response = await createCommandService(data);
         if (response) {
@@ -31,16 +31,15 @@ export const CommandCreateActions = (data,chatid) => async (dispatch) => {
     }
 }
 
-export const CommandDeleteActions = (id, data) => async (dispatch) => {
+export const CommandDeleteActions = (id, chatid) => async (dispatch) => {
     try {
-        const response = await deleteCommandService(id, data);
+        const response = await deleteCommandService(id);
         if (response) {
-            // dispatch(getBlogActionData())
             setTimeout(() => {
-                ToastSuccess("Command Deleted Successfully")
+                ToastSuccess("Command Deleted Successfully");
+                dispatch(GetmessagesActions(chatid));
             }, 400);
         }
     } catch (error) {
-        // ToastError(error?.response?.data?.message);
     }
 }

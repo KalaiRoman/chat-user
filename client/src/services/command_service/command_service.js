@@ -14,7 +14,7 @@ export async function createCommandService(data) {
 
 export async function deleteCommandService(id, data) {
     try {
-        const response = await instanceBaseurl.post(`/chat/delete/${id}`, data);
+        const response = await instanceBaseurl.delete(`/chat/delete/${id}`);
         return response.data;
     } catch (err) {
         throw err;

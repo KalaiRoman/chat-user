@@ -23,7 +23,8 @@ export const getMessages = async (req, res, next) => {
         const postMessages = responsePost?.map((item) => {
             return {
                 fromself: item?.user?.toString() == req.userid,
-                message: item?.message?.text
+                message: item?.message?.text,
+                id:item?._id
             }
         })
         res.status(200).json({ message: "success", data: postMessages });
@@ -33,22 +34,9 @@ export const getMessages = async (req, res, next) => {
 }
 
 export const chatCreatemessageDelete = async (req, res, next) => {
-    const { userid, commandid } = req.body;
     try {
-        if (req.userid === userid) {
-            const post = await Auth_Shema.findByIdAndUpdate(
-                { _id: req.userid },
-                {
-                    $pull: { userChatmessages: { _id: commandid } },
-                },
-                { new: true }
-            );
-
-        }
-        else {
-            res.status(404).json({ message: "Your Not Allowed Post Delete" })
-        }
-
+        const post = await Message_shema.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: "Message Deleted" })
     } catch (error) {
         res.status(404).json({ message: error })
 

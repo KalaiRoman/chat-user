@@ -43,6 +43,21 @@
                             object-fit: contain;
                         }
                     }
+                    .active-chatbox {
+                        background-color: #f8e8ee;
+                        width: 100%;
+                        border-bottom: 3px solid #f9f5f6;
+                        padding: 10px 9px;
+                        cursor: pointer;
+                        display: flex;
+                        gap: 20px;
+                        .user-image {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            object-fit: contain;
+                        }
+                    }
                     .user-box:hover {
                         background-color: #f9f5f6;
                     }
@@ -68,15 +83,14 @@
                 width: 100%;
                 height: 100vh;
                 overflow: hidden;
-
                 .right-chatbox-header {
                     width: 100%;
                     height: 10%;
-                    border: 3px solid red;
+                    border: 1px solid red;
                     display: flex;
                     justify-content: space-between;
+                    padding: 20px;
                     align-items: center;
-                    padding: 0px 20px;
                     .logout-btn {
                         width: 25px;
                         height: 25px;
@@ -87,6 +101,12 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
+                    }
+                    .user-image {
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        object-fit: contain;
                     }
                 }
                 .chat-form {
@@ -99,7 +119,7 @@
                     height: 78%;
                     border: 3px solid red;
                     overflow: hidden;
-                    overflow-y: auto;
+                    overflow-y: scroll;
                     .sender {
                         display: flex;
                         justify-content: flex-end;
@@ -119,10 +139,25 @@
                         border-top-right-radius: 10px;
                         padding: 10px 20px;
                         margin: 10px 0px;
+                        position: relative;
                         .date-box {
                             display: flex;
                             justify-content: flex-end;
                             font-size: 12px;
+                        }
+                        .delete-box {
+                            position: absolute;
+                            left: -3%;
+                            top: -6%;
+                            width: 20px;
+                            height: 20px;
+                            background-color: red;
+                            color: white;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            cursor: pointer;
+                            border-radius: 50%;
                         }
                     }
                 }

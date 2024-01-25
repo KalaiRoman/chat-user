@@ -4,5 +4,5 @@ import { verifyToken } from './../../middleware/Tokenverification.js';
 const chatrouter = expres.Router();
 chatrouter.post("/create", verifyToken, chatCreatemessage);
 chatrouter.post("/getmessages/", verifyToken, getMessages);
-chatrouter.post("/delete/:id", verifyToken, chatCreatemessageDelete)
+chatrouter.delete("/delete/:id", verifyToken, chatCreatemessageDelete)
 export default chatrouter;
