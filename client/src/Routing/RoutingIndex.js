@@ -5,6 +5,7 @@ import Pagenotfound from '../helpers/Pagenotfound';
 import Signup from '../components/auth/Signup';
 import Signin from '../components/auth/Signin';
 import Chatuser from '../components/chat/Chatuser';
+import Avatarimages from '../components/avatarimages/Avatarimages';
 // import Signin from '../components/auth/Signin';
 
 
@@ -17,7 +18,8 @@ function RoutingIndex() {
                 <Route exact path="/register" element={<Signup />} />
 
                 <Route element={<ProtectedRouter />}>
-                <Route exact path="/chatuser" element={<Chatuser />} />
+                    <Route exact path="/chatuser" element={<Chatuser />} />
+                    <Route exact path="/useravatar" element={<Avatarimages />} />
 
                     <Route path="/*" element={<Pagenotfound />} />
                 </Route>

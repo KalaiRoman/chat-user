@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './Chatuser.scss';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AllUsers, CommandCreateActions } from '../../redux/actions/AllusersActions';
 import { SingleuserActionData } from '../../redux/actions/SingleuserAction';
@@ -8,7 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { jwtDecode } from "jwt-decode";
+import EmojiPicker from 'emoji-picker-react';
 function Chatuser() {
+
+  const navigate = useNavigate();
+
 
   const usertoken = localStorage.getItem("user_token");
   const final = jwtDecode(usertoken);
@@ -19,14 +23,10 @@ function Chatuser() {
   const [loading, setLoading] = useState(false);
 
   const [show, setShow] = useState(false);
-  const [show1, setShow1] = useState(false);
+
+  const handleShow = () => setShow(!show);
 
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const handleClose1 = () => setShow1(false);
-  const handleShow1 = () => setShow1(true);
   const dispatch = useDispatch();
   const chatuser = useSelector((state) => state?.allusers?.Alluser);
   const singleuserchat = useSelector((state) => state?.singleuser?.Singleuser);
@@ -53,6 +53,16 @@ function Chatuser() {
       setCommand("");
       dispatch(CommandCreateActions(singleuserchat?._id, datas))
     }
+  }
+
+  const logoutuser = () => {
+    localStorage.clear();
+    navigate("/");
+  }
+
+  const handleEmojiClick = (emoji) => {
+    var message = command + emoji?.emoji;
+    setCommand(message)
   }
   if (usertoken) {
     return (
@@ -95,6 +105,9 @@ function Chatuser() {
               <div className='inside-right-chatbox'>
                 <div className='right-chatbox-header'>
                   {singleuserchat?.userName}
+                  <div className='logout-btn' onClick={logoutuser}>
+                    <ion-icon name="log-out-outline"></ion-icon>
+                  </div>
                 </div>
                 <div className='right-chatbox-body'>
                   {singleuserchat?.userChatmessages?.map((item, index) => {
@@ -107,8 +120,14 @@ function Chatuser() {
                 </div>
                 <div className='right-chatbox-message'>
                   <div className='d-flex align-items-center mt-2 mb-4 border-chat'>
-                    <div onClick={handleShow1}>
-                      😀
+                    <div className='emoji' onClick={handleShow}>
+
+                      {show ? <>
+                        <EmojiPicker className='box-emojies' onEmojiClick={handleEmojiClick} />
+
+                      </> : <>
+                        😀
+                      </>}
                     </div>
                     <div className='mt-3'>
                       <Form.Group className="mb-3" controlId="formBasicEmail">

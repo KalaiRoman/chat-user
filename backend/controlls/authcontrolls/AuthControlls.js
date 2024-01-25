@@ -16,11 +16,8 @@ export const AuthRegister = async (req, res, next) => {
             userName: result?.userName,
             email: result?.email,
             password: hashPassword,
-            posts: 0,
             avatar: "",
-            profileDescription: "",
-            role: "user",
-            usertype: 2
+            avatarstatus: false
         });
         await response.save();
         res.status(201).json({ message: "User Register Successfully", user: response });
@@ -81,16 +78,15 @@ export const GetSingleUserData = async (req, res, next) => {
 
 // single user update
 export const SingleUserUpdate = async (req, res, next) => {
-    const id = req.params.id;
     try {
 
-        const olduser = await Auth_Shema.findById({ _id: id })
+        const olduser = await Auth_Shema.findById({ _id: req.userid })
         if (req.body.password) {
             const oldPassword = await bcrypt.compare(req.body.oldpassword, olduser?.password);
             if (oldPassword) {
                 const salt = await bcrypt.genSalt(10);
                 const comparepassword = await bcrypt.hashSync(req.body.password, salt)
-                const response = await Auth_Shema.findByIdAndUpdate({ _id: id }, { password: comparepassword }, { new: true });
+                const response = await Auth_Shema.findByIdAndUpdate({ _id: req.userid }, { password: comparepassword }, { new: true });
                 if (response) { res.status(200).json({ message: "Updated Password successfully" }); }
 
             }
@@ -100,7 +96,7 @@ export const SingleUserUpdate = async (req, res, next) => {
 
         }
         else {
-            const response = await Auth_Shema.findByIdAndUpdate({ _id: id }, req.body, { new: true });
+            const response = await Auth_Shema.findByIdAndUpdate({ _id: req.userid }, req.body, { new: true });
             if (response) { res.status(200).json({ message: "Updated successfully" }); }
             else {
                 res.status(404).json({ message: "User Id Not Found", });
@@ -114,20 +110,9 @@ export const SingleUserUpdate = async (req, res, next) => {
 // all users
 export const AllUsers = async (req, res, next) => {
     try {
-        const responsedata = [];
+        const response = await Auth_Shema.find({ _id: { $ne: req.userid } });
+        if (response) res.status(200).json({ message: "All Users", data: response });
 
-        const response = await Auth_Shema.find();
-
-        response?.map((item, index) => {
-            if (item?._id == req.userid) {
-            }
-            else {
-                responsedata.push(item);
-            }
-        })
-        if (responsedata) {
-            res.status(200).json({ message: "All Users", data: responsedata });
-        }
     } catch (error) {
         res.status(404).json({ message: error });
 

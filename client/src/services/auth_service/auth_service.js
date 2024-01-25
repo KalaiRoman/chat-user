@@ -63,3 +63,13 @@ export async function changepasswordService(id, data) {
         throw err;
     }
 }
+
+
+export async function updateuserService(data) {
+    try {
+        const response = await instanceBaseurl.put(`/auth/update/`, data);
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
+}

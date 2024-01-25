@@ -13,28 +13,12 @@ const Auth_Shema = new mongoose.Schema({
         type: String,
         required: [true, "Password is Required"],
     },
-    userChatmessages: {
-        type: [
-            {
-                message: {
-                    type: String,
-                },
-                commanduserId: {
-                    type: String,
-                    required: true
-                },
-                createdAt: {
-                    type: String,
-                    default: () => new Date().toISOString(),
-                },
-                updatedAt: {
-                    type: String,
-                    default: () => new Date().toISOString(),
-                },
-            },
-        ],
-        default: []
+    avatar: {
+        type: String,
     },
+    avatarstatus: {
+        type: Boolean
+    }
 }, {
     timestamps: true
 });

@@ -1,4 +1,4 @@
-import { changepasswordService, forgetpasswordService, loginUer, registerUser } from "../../services/auth_service/auth_service"
+import { changepasswordService, forgetpasswordService, loginUer, registerUser, updateuserService } from "../../services/auth_service/auth_service"
 // import { SingleuserActionData } from "./SingleuserAction";
 import { ToastSuccess, ToastError } from './../../middleware/Toastmodal';
 
@@ -7,11 +7,22 @@ export const LoginAction = (data, navigate) => async (dispatch) => {
         const response = await loginUer(data);
         if (response) {
             localStorage.setItem("user_token", JSON.stringify(response?.token));
+
             ToastSuccess("User Login Successfully")
-            setTimeout(() => {
-                navigate("/chatuser");
-                // dispatch(SingleuserActionData());
-            }, 400);
+
+            if (response?.user?.avatarstatus) {
+                setTimeout(() => {
+                    navigate("/chatuser");
+                    // dispatch(SingleuserActionData());
+                }, 400);
+            }
+            else {
+                setTimeout(() => {
+                    navigate("/useravatar");
+                    // dispatch(SingleuserActionData());
+                }, 400);
+            }
+
         }
     } catch (error) {
         ToastError(error?.response?.data?.message);
@@ -53,6 +64,20 @@ export const ChangepasswordActions = (id, data, navigate) => async () => {
             setTimeout(() => {
                 ToastSuccess(response?.message);
                 navigate("/login");
+            }, 400);
+        }
+    } catch (error) {
+        ToastError(error?.response?.data?.message);
+    }
+}
+
+export const updateProfileActions = (data, navigate) => async () => {
+    try {
+        const response = await updateuserService(data);
+        if (response) {
+            ToastSuccess(response?.message);
+            setTimeout(() => {
+                navigate("/chatuser")
             }, 400);
         }
     } catch (error) {
