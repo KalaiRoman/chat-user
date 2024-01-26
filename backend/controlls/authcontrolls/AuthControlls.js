@@ -110,8 +110,27 @@ export const SingleUserUpdate = async (req, res, next) => {
 // all users
 export const AllUsers = async (req, res, next) => {
     try {
-        const response = await Auth_Shema.find({ _id: { $ne: req.userid } });
-        if (response) res.status(200).json({ message: "All Users", data: response });
+
+        const singleUser = [];
+        const allusers = [];
+
+        // const response = await Auth_Shema.find({ _id: { $ne: req.userid } });
+        const response = await Auth_Shema.find();
+
+        response.map((item, index) => {
+            if (item?._id == req.userid) {
+                singleUser?.push(item);
+            }
+            else {
+                allusers?.push(item);
+            }
+        })
+
+        const responseData = {
+            singleUser: singleUser,
+            allusers: allusers
+        }
+        if (response) res.status(200).json({ message: "All Users", data: responseData });
 
     } catch (error) {
         res.status(404).json({ message: error });

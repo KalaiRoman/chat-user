@@ -21,6 +21,7 @@ function Chatuser() {
   const usertoken = localStorage.getItem("user_token");
   const final = jwtDecode(usertoken);
 
+
   const [command, setCommand] = useState("");
   const [commanderror, setCommandError] = useState("");
 
@@ -42,6 +43,10 @@ function Chatuser() {
   useEffect(() => {
     dispatch(AllUsers())
   }, [])
+
+
+
+
 
 
   useEffect(() => {
@@ -99,6 +104,9 @@ function Chatuser() {
     }
     dispatch(CommandDeleteActions(id, data))
   }
+
+
+
   if (usertoken) {
     return (
       <div className='main-chatbox'>
@@ -106,11 +114,22 @@ function Chatuser() {
           <div className='left-chatbox'>
             <div className='inside-left-chatbox'>
               <div className='left-chatbox-header'>
-
+                <div className='d-flex gap-3 align-items-center mt-4 ms-4'>
+                  <div>
+                    {chatuser?.singleUser && chatuser?.singleUser[0]?.avatar ? <>
+                      <img src={chatuser?.singleUser && chatuser?.singleUser[0]?.avatar} alt="no image" className='user-image' />
+                    </> : <>
+                      <img src={"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"} alt="no image" className='user-image' />
+                    </>}
+                  </div>
+                  <div className='fw-bold fs-3'>
+                    {chatuser?.singleUser && chatuser?.singleUser[0]?.userName}
+                  </div>
+                </div>
               </div>
               <div className='left-chatbox-body'>
                 <div className='mt-2 mb-1'>
-                  {chatuser?.map((item, index) => {
+                  {chatuser?.allusers?.map((item, index) => {
                     return (
                       <div className={singleuserchat?._id == item?._id ? "active-chatbox" : 'user-box mb-1'} key={index} onClick={() => Singleuser(item?._id)}>
                         <div>
